@@ -1,0 +1,1 @@
+{"direction":"long","entry":{"params":{},"pattern":"bullish_engulfing"},"exit":{"any":[],"hold_bars":10,"stop_loss_pct":8,"take_profit_pct":null,"trailing_atr_mult":null},"family":"candlestick_reversal","id":"bullish_engulfing_v1","name":"Bullish Engulfing","notes":"Bullish bar engulfs previous bearish bar.","params_grid":{"exit.hold_bars":[5,10,20]},"timeframe":"1d"}

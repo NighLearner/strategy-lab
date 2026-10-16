@@ -1,0 +1,37 @@
+# Python bytecode, test caches, and virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Strategy Lab runtime output: downloaded market data, SQLite state, and logs
+data/
+logs/
+
+# Generated research reports can be reproduced with `python -m lab report`
+reports/
+
+# Local editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local Codex/agent state
+.codex/
+.agents/

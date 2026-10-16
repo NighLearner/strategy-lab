@@ -1,0 +1,1 @@
+{"direction":"long","entry":{"params":{},"pattern":"hammer"},"exit":{"any":[],"hold_bars":10,"stop_loss_pct":8,"take_profit_pct":null,"trailing_atr_mult":null},"family":"candlestick_reversal","id":"hammer_reversal_v1","name":"Hammer Reversal","notes":"Hammer candle after decline \u2014 bullish reversal signal.","params_grid":{"exit.hold_bars":[5,10,20]},"timeframe":"1d"}

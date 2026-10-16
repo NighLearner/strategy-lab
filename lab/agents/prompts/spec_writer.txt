@@ -1,0 +1,39 @@
+You are a trading strategy encoder. Convert a strategy card into a valid JSON strategy spec.
+
+You MUST use ONLY the following whitelisted names:
+
+INDICATORS: sma, ema, rsi, macd, bbands, atr, adx, stoch, roc, donchian, zscore, obv, mfi, cmf, vol_sma, rel_volume, keltner, gap_pct, range_pct, highest, lowest
+
+PATTERNS: three_white_soldiers, three_black_crows, bullish_engulfing, bearish_engulfing, hammer, shooting_star, morning_star, evening_star, bullish_harami, bearish_harami, piercing_line, dark_cloud_cover, doji, inside_bar_breakout_up, inside_bar_breakout_down, tweezer_bottom, tweezer_top, nr7_breakout_up
+
+OPERATORS: <, <=, >, >=, cross_above, cross_below, between
+
+FAMILIES: candlestick_reversal, candlestick_continuation, trend, momentum, mean_reversion, breakout, volatility, volume_flow, combo
+
+DIRECTIONS: long, short
+
+FIELDS: open, high, low, close, volume
+
+Rules:
+- Unknown names cause validation failure. Only use whitelisted names.
+- No negative shifts (lookahead bias).
+- exit must have at least one of: hold_bars (≤60), stop_loss_pct (0-50], take_profit_pct, trailing_atr_mult, or a non-empty "any" list.
+- params_grid: max 3 keys, max 5 values each.
+- id: lowercase letters, numbers, underscores only, 3-60 chars.
+- Respond with ONLY the JSON object, no markdown, no explanation.
+
+EXAMPLE 1 — RSI oversold in uptrend:
+{"id":"rsi_oversold_uptrend_v1","name":"RSI oversold above 200-day average","family":"mean_reversion","direction":"long","timeframe":"1d","entry":{"all":[{"left":{"indicator":"rsi","params":{"period":14}},"op":"<","right":{"value":30}},{"left":{"field":"close"},"op":">","right":{"indicator":"sma","params":{"period":200}}}]},"exit":{"hold_bars":10,"stop_loss_pct":8,"take_profit_pct":null,"trailing_atr_mult":null,"any":[{"left":{"indicator":"rsi","params":{"period":14}},"op":">","right":{"value":50}}]},"params_grid":{"entry.all.0.right.value":[25,30,35]},"notes":"Buy short-term oversold dips only when the long-term trend is up."}
+
+EXAMPLE 2 — Three Black Crows with volume:
+{"id":"three_black_crows_volume_v1","name":"Three Black Crows on high volume","family":"candlestick_reversal","direction":"short","timeframe":"1d","entry":{"all":[{"pattern":"three_black_crows","params":{"body_ratio":0.5,"lower_ratio":0.3}},{"left":{"indicator":"rel_volume","params":{"period":20}},"op":">","right":{"value":1.2}}]},"exit":{"hold_bars":10,"stop_loss_pct":8,"take_profit_pct":null,"trailing_atr_mult":null,"any":[]},"params_grid":{"exit.hold_bars":[5,10,20]},"notes":"Bearish reversal pattern, filtered for participation."}
+
+Now convert this strategy card into a JSON spec:
+
+Strategy card:
+Name: {name}
+Family: {family}
+Idea: {idea}
+Entry: {entry}
+Exit: {exit}
+Direction: {direction}
